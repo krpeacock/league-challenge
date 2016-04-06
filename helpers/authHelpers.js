@@ -27,12 +27,13 @@ const authMiddleware = {
      return next();
     }
   },
-  ensureCorrectUser(req,res,next,a){
-
+  ensureCorrectUser(req,res,next){
     if(+req.params.id !== req.user.id){
       res.redirect(`/users`)
     }
     else {
+      require("locus")
+      eval(locus)
       return next();
     }
   },
