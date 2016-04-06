@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h1 See all of #{user.username}'s posts
+  each post in posts
+    p= post.title
+    p= post.body
+    a(href="/users/#{user.id}/posts/#{post.id}/edit") Edit this post
+    form(action="/users/#{user.id}/posts/#{post.id}?_method=DELETE" method="POST")
+      input(type="submit" value="X" class="btn btn-xs btn-danger")

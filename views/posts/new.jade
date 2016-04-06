@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h1 Hey #{currentUser.username} - here's where you add a new post
+  form(action="/users/#{currentUser.id}/posts" method="POST")
+    label(for="title") Title
+    input(type="text" name="post[title]")
+    label(for="title") body
+    input(type="text" name="post[body]")
+    input(type="submit" value="Add")

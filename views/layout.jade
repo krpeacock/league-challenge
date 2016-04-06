@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  block title
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+body.container
+  if(currentUser)
+    a(href="/logout" class="btn btn-danger pull-right") logout
+    a(href="/users/" class="btn btn-info pull-right") see all posts
+    a(href="/users/#{currentUser.id}/posts/new" class="btn btn-warning pull-right") add a new post
+  block content

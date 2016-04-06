@@ -1,0 +1,21 @@
+extends ../layout.jade
+
+block content
+
+  h1 Login
+
+  p(style = "color:red")
+    if(message)
+      =message
+
+  form(action="/login" method = "post")
+    p
+      label(for="user") Username
+      input(type="text" name="user[username]" id="user" autofocus  value =username)
+
+    p
+      label(for="pass") Password
+      input(type="password" name="user[password]" id="pass")
+    p
+      input(type="submit" value="Log In" class ="btn btn-primary")
+  a(href="/signup") Don't have an account? Create one here
