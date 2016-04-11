@@ -27,7 +27,7 @@ To run the app:
   5. Start the app:
 
   ```sh
-  npm start
+  nodemon
   ```
 
 The app is hosted on port 3000: [http://localhost:3000/](http://localhost:3000/)
