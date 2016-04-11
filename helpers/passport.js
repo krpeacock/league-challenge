@@ -8,7 +8,6 @@ module.exports = (passport) => {
     passwordField: 'user[password]',
     passReqToCallback : true
   },(req,username, password, done) =>{
-
       knex('users').where({ username }).first().then((user) =>{
         if (!user) {
           return done(null, false, req.flash('loginMessage','Incorrect username.'));

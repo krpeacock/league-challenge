@@ -22,7 +22,6 @@ app.use(session( {
   })
 );
 
-
 // get passport + flash messages started
 app.use(passport.initialize());
 app.use(passport.session());
