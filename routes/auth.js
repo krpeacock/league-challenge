@@ -29,15 +29,15 @@ router.post('/signup', authHelpers.preventLoginSignup, (req, res, next)  => {
     })(req, res, next);
   }).catch((err) =>{
     if(err.constraint === 'users_username_unique'){
-      req.flash('loginMessage', 'username is already taken')
-      res.redirect('/signup');
+      err.message = 'username is already taken'
     }
-    else if(err) {
+    if(err) {
       req.flash('loginMessage', err.message)
       res.redirect('/signup');
     }
-    res.render('error', {err})
-
+    else {
+      res.render('error', {err})
+    }
   })
 });
 
