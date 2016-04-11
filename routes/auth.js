@@ -3,24 +3,24 @@ const router = express.Router()
 const authHelpers = require("../helpers/authHelpers")
 const passwordHelpers = require("../helpers/passwordHelpers")
 const knex = require("../db/knex");
-var passport = require("passport");
+const passport = require("passport");
 
-router.get('/signup', authHelpers.preventLoginSignup, function(req,res){
+router.get('/signup', authHelpers.preventLoginSignup, (req,res) => {
     res.render('auth/signup', {message: req.flash('loginMessage')});
 });
 
-router.get('/login', authHelpers.preventLoginSignup, function(req,res){
+router.get('/login', authHelpers.preventLoginSignup, (req,res) => {
     res.render('auth/login', {message: req.flash('loginMessage')});
 });
 
-router.post('/signup', authHelpers.preventLoginSignup, function(req, res, next) {
+router.post('/signup', authHelpers.preventLoginSignup, (req, res, next)  => {
   passwordHelpers.createUser(req).then((user) => {
-    passport.authenticate('local', function(err, user) {
+    passport.authenticate('local', (err, user)  => {
       if (err) { return next(err); }
       if (!user) {
         return res.redirect('/login');
       }
-      req.logIn(user, function(err) {
+      req.logIn(user, (err)  => {
         if (err) {
           return next(err);
         }
@@ -42,15 +42,13 @@ router.post('/signup', authHelpers.preventLoginSignup, function(req, res, next) 
 });
 
 // authenticate users when logging in - no need for req,res passport does this for us
-router.post('/login',
-  passport.authenticate('local', {
+router.post('/login', passport.authenticate('local', {
     successRedirect: `/users`,
     failureRedirect: '/login',
     failureFlash: true
-  })
-);
+  }));
 
-router.get('/logout', authHelpers.checkAuthentication, function(req,res){
+router.get('/logout', authHelpers.checkAuthentication, (req,res) => {
   //req.logout added by passport - delete the user id/session
   req.logout();
   res.redirect('/login');

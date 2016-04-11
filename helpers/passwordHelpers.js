@@ -4,6 +4,12 @@ const bcrypt = require("bcrypt");
 const knex = require("../db/knex")
 
 exports.createUser =(req)=> {
+    if(req.body.user.username.length < 6) {
+      return Promise.reject({
+        err:'username_length',
+        message:'Username must be longer than 6 characters'
+      })
+    }
     if(req.body.user.password.length < 6) {
       return Promise.reject({
         err:'password_length',
@@ -19,6 +25,12 @@ exports.createUser =(req)=> {
 },
 
 exports.editUser =(req)=> {
+    if(req.body.user.username.length < 6) {
+      return Promise.reject({
+        err:'username_length',
+        message:'Username must be longer than 6 characters'
+      })
+    }
     if(req.body.user.password.length < 6) {
       return Promise.reject({
         err:'password_length',

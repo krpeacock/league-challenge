@@ -46,8 +46,6 @@ router.post('/', authHelpers.ensureCorrectUserForPost, (req,res) =>{
   knex('posts')
     .insert(Object.assign(req.body.post, {user_id: req.params.user_id}),"*")
     .then((post) => {
-      require("locus")
-      eval(locus)
       res.redirect(`/users/${post[0].user_id}/posts`)
     })
 });

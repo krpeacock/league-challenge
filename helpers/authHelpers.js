@@ -32,8 +32,6 @@ const authMiddleware = {
       res.redirect(`/users`)
     }
     else {
-      require("locus")
-      eval(locus)
       return next();
     }
   },
