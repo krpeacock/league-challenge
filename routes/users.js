@@ -15,7 +15,7 @@ router.get('/', (req,res) =>{
 
 router.get('/:id/edit', authHelpers.ensureCorrectUser, (req,res) =>{
     knex('users').where({id:req.params.id}).first().then((user) => {
-      res.render('users/edit', {user});
+      res.render('users/edit', {user, message: req.flash('loginMessage')});
     })
 });
 
@@ -23,7 +23,11 @@ router.patch('/:id', authHelpers.ensureCorrectUser, (req,res) =>{
     passwordHelpers.editUser(req).then((user) => {
       res.redirect(`/users`);
     }).catch((err)=> {
-      res.render(`/users/${user.id}/edit`);
+      if (err.constraint === 'users_username_unique') {
+        err.message = "username is already taken"
+      }
+      req.flash('loginMessage', err.message)
+      res.redirect(`/users/${req.user.id}/edit`);
     })
 });
 

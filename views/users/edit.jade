@@ -1,6 +1,7 @@
 extends ../layout.jade
 
 block content
+  include ../partials/_error-message
   h1 Hi! #{currentUser.username} - change your info here!
   form(action="/users/#{user.id}?_method=PATCH" method="POST")
     label(for="username") Username
