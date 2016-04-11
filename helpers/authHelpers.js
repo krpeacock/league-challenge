@@ -3,7 +3,7 @@ const authMiddleware = {
     // can use req.isAuthenticated() for this too..
     if (!req.user) {
       req.flash('loginMessage', "Please log in first")
-      res.redirect('/login');
+      return res.redirect('/login');
     }
     else {
      return next();
@@ -16,11 +16,13 @@ const authMiddleware = {
       res.locals.currentUser = req.user;
       return next();
     }
-    return next();
+    else {
+      return next();
+    }
   },
   preventLoginSignup(req, res, next) {
     if (req.user) {
-      res.redirect(`/users/${req.user.id}`);
+      return res.redirect(`/users/${req.user.id}`);
     }
     else {
      return next();
@@ -28,7 +30,7 @@ const authMiddleware = {
   },
   ensureCorrectUser(req,res,next){
     if(+req.params.id !== req.user.id){
-      res.redirect(`/users`)
+      return res.redirect(`/users`)
     }
     else {
       return next();
@@ -36,7 +38,7 @@ const authMiddleware = {
   },
   ensureCorrectUserForPost(req,res,next){
     if(+req.params.user_id !== req.user.id){
-      res.redirect(`/users/${req.user.id}/posts`)
+      return res.redirect(`/users/${req.user.id}/posts`)
     }
     else {
       return next();

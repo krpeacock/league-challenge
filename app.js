@@ -1,3 +1,5 @@
+if(process.env.NODE_ENV !== 'production') require('dotenv').load();
+
 const express = require("express");
 const app = express();
 const methodOverride = require("method-override");
@@ -16,7 +18,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
 app.use(session( {
-  secret: 'thisismysecretkey',
+  secret: process.env.SECRET,
   name: 'chocolate chip',
   maxage: 3600000
   })

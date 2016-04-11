@@ -44,8 +44,7 @@ router.post('/signup', authHelpers.preventLoginSignup, (req, res, next)  => {
 // authenticate users when logging in - no need for req,res passport does this for us
 router.post('/login', passport.authenticate('local', {
     successRedirect: `/users`,
-    failureRedirect: '/login',
-    failureFlash: true
+    failureRedirect: '/login'
   }));
 
 router.get('/logout', authHelpers.checkAuthentication, (req,res) => {
