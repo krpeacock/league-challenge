@@ -15,7 +15,9 @@ module.exports = (passport) => {
         if (!passwordHelpers.comparePass(password, user.password)) {
           return done(null, false, req.flash('loginMessage', 'Incorrect password.'));
         }
-        return done(null, user);
+        else {
+          return done(null, user);
+        }
       }).catch((err) => {
         return done(err)
       })
