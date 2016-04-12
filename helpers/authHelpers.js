@@ -2,6 +2,9 @@ const authMiddleware = {
   checkAuthentication(req, res, next) {
     // can use req.isAuthenticated() for this too..
     if (!req.user) {
+      // to stop chrome autocomplete
+        // http://superuser.com/questions/394562/can-i-turn-off-google-chromes-new-prerendering
+      req.session.flash = {}
       req.flash('loginMessage', "Please log in first")
       return res.redirect('/login');
     }
@@ -22,7 +25,7 @@ const authMiddleware = {
   },
   preventLoginSignup(req, res, next) {
     if (req.user) {
-      return res.redirect(`/users/${req.user.id}`);
+      return res.redirect(`/users`);
     }
     else {
      return next();
