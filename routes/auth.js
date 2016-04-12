@@ -10,7 +10,7 @@ router.get('/signup', authHelpers.preventLoginSignup, (req,res) => {
 });
 
 router.get('/login', authHelpers.preventLoginSignup, (req,res) => {
-    res.render('auth/login', {message: req.flash('loginMessage')});
+    res.render('auth/login', {message: req.flash('loginMessage'), val: "Login"});
 });
 
 router.post('/signup', authHelpers.preventLoginSignup, (req, res, next)  => {
