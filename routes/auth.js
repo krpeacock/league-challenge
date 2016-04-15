@@ -15,17 +15,11 @@ router.get('/login', authHelpers.preventLoginSignup, (req,res) => {
 
 router.post('/signup', authHelpers.preventLoginSignup, (req, res, next)  => {
   passwordHelpers.createUser(req).then((user) => {
-    passport.authenticate('local', (err, user)  => {
-      if (err) { return next(err); }
-      if (!user) {
-        return res.redirect('/login');
-      }
-      req.logIn(user, (err)  => {
+      req.login(user[0], (err)  => {
         if (err) {
           return next(err);
         }
         return res.redirect('/users/');
-      });
     })(req, res, next);
   }).catch((err) =>{
     if(err.constraint === 'users_username_unique'){
