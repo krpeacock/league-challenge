@@ -23,6 +23,15 @@ router.get('/', (req,res) =>{
     })
 });
 
+
+router.get('/', (req,res) =>{
+    knex('users').where({id:req.params.id}).first().then((user) => {
+      knex('users').where({id:req.user.id}).first().then((currentUser) => {
+        res.send({user})
+      })
+    })
+})
+
 router.get('/:id/edit', authHelpers.ensureCorrectUser, (req,res) =>{
     knex('users').where({id:req.params.id}).first().then((user) => {
       res.render('users/edit', {user, message: req.flash('loginMessage')});
