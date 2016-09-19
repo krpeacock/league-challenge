@@ -2,10 +2,6 @@ extends ../layout.jade
 
 block content
   include ../partials/_error-message
-  h1 Hi! #{currentUser.username} - change your info here!
+  h1 Hi! #{currentUser.username} - change your preferences here!
   form(action="/users/#{user.id}?_method=PATCH" method="POST")
-    label(for="username") Username
-      input(type="text" name="user[username]" value="#{user.username}")
-    label(for="password") Password
-      input(type="password" name="user[password]")
-    input(type="submit", value="Edit" class="btn btn-success")
+    include ../partials/_user-form

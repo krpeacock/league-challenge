@@ -9,7 +9,18 @@ router.use(authHelpers.checkAuthentication)
 
 router.get('/', (req,res) =>{
     knex('users').then((users) => {
-      res.render('users/index', {users});
+      knex('users').where({id:req.user.id}).first().then((currentUser) => {
+        var filteredUsers = users.filter((user)=>{
+          if (user.id === currentUser.id) return false;
+          if (currentUser.gender_preference !== "either" || user.gender) return false; 
+          //etc. 
+          return true;
+        })
+
+
+
+        res.render('users/index', {user:currentUser, users:filteredUsers});
+      })
     })
 });
 

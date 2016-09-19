@@ -7,8 +7,7 @@ head
 body.container
   if(currentUser)
     a(href="/logout" class="btn btn-danger pull-right") logout
-    a(href="/users/" class="btn btn-info pull-right") see all posts
-    a(href="/users/#{currentUser.id}/posts/new" class="btn btn-warning pull-right") add a new post
+    a(href="/users/#{currentUser.id}/edit" class="btn btn-success pull-right") edit preferences
   block content
 
   block scripts

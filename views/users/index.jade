@@ -1,22 +1,17 @@
 extends ../layout
 
 block content
-  h1 SEE ALL THE USERS
+  h1 Browse Users
   table.table.table-hover
     thead
       th Name
-      th Posts
-      th Edit
-      th Delete
+      th Like
     tbody
       each user in users
         tr
-          td= user.username
+          td 
+            a(href="/users/#{user.id}") #{user.username}
           td
-            a(href="/users/#{user.id}/posts") See this users's posts
-          td
-            a(href="/users/#{user.id}/edit") Edit this user
-          td
-            form(action="/users/#{user.id}?_method=DELETE" method="POST")
-              input(type="submit" value="X" class="btn btn-xs btn-danger")
+            form(action="/users/#{user.id}" method="POST")
+              input(type="submit" value="Like" class="btn btn-success")
     tfoot

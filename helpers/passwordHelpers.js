@@ -28,6 +28,10 @@ exports.createUser =(req)=> {
       return knex('users').insert({
         username: req.body.user.username,
         password:hash,
+        age:req.body.user.age,
+        gender:req.body.user.gender,
+        gender_preference:req.body.user.gender_preference,
+        religion:req.body.user.religion
       }, "*")
     })
 },
@@ -39,6 +43,10 @@ exports.editUser =(req)=> {
       return knex('users').where({id: req.params.id}).update({
         username: req.body.user.username,
         password:hash,
+        age:req.body.user.age,
+        gender:req.body.user.gender,
+        gender_preference:req.body.user.gender_preference,
+        religion:req.body.user.religion
       }, "*")
     })
 },

@@ -19,7 +19,7 @@ app.use(methodOverride("_method"));
 
 app.use(session( {
   secret: process.env.SECRET,
-  name: 'chocolate chip',
+  name: 'backend',
   maxage: 3600000
   })
 );
@@ -33,11 +33,13 @@ require('./helpers/passport')(passport);
 
 app.use('/', routes.auth)
 app.use('/users', routes.users)
-app.use('/users/:user_id/posts', routes.posts)
+app.use('/users/:user_id/likes', routes.likes)
+
 
 app.get('/', function(req,res){
   res.redirect('/login')
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

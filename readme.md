@@ -1,60 +1,52 @@
-# Form-based authentication with `express`, `knex`, `postgres`, `bcrypt`
+# Quick Attempt at backend challenge
 
-Application Setup
---
+Hi, The League! This is my 4 hour approach to the Node.js challenge. Naturally, there are a million things I probably should have done differently, but I thought I'd tell you about my approach. 
 
-To run the app:
+Started: 11 am, Saturday. Completed: 6 pm, Sunday.
 
-  1. Create a `.env` file with a random cookie secret:
+Readme written and project deployed on Monday.
 
-  ```sh
-  echo SECRET=$(node -e "require('crypto').randomBytes(48, function(ex, buf) { console.log(buf.toString('hex')) });") >> .env
-  ```
+----
 
-  3. Install `npm` dependencies and create the `psql` database:
+### Take 1
 
-  ```sh
-  npm install
-  createdb passport_knex
-  ```
+First, I started out by trying to write absolutely everything from scratch. 
 
-  4. Run the `knex` migration (located in the migrations folder) to create the tables on the database:
+I started by thinking about what my user object would be, and I started out with the basic properties that they would have: 
 
-  ```sh
-  knex migrate:latest
-  ```
-
-  5. Start the app:
-
-  ```sh
-  nodemon
-  ```
-
-The app is hosted on port 3000: [http://localhost:3000/](http://localhost:3000/)
-
-## Bcrypt Hashing & Salt
-The modular crypt format for bcrypt consists of
-
-* `$2$`, `$2a$` or `$2y$` identifying the hashing algorithm and format,
-* a two digit value denoting the cost parameter, followed by `$`
-* a 53 characters long base-64-encoded value (they use the alphabet `.`, `/`, `0`–`9`, `A`–`Z`, `a`–`z` that is different to the [standard Base 64 Encoding](http://tools.ietf.org/html/rfc4648#section-4) alphabet) consisting of:
-  * 22 characters of salt (effectively only 128 bits of the 132 decoded bits)
-  * 31 characters of encrypted output (effectively only 184 bits of the 186 decoded bits)
-
-Thus the total length is 59 or 60 bytes respectively.
-
-Examples:
-
-```js
-let hash = bcrypt.hashSync('password', 10);
- // '$2a$10$VqeqkeCsxlKfRefRSNZXf.WH5o52XyO3f4wZYAuVd8yGSoZamiT9u'
-
-bcrypt.compareSync('password', hash);
- // true
-
-bcrypt.compareSync('wRoNgPaSsWoRd', hash);
- // false
 ```
+user: {
+	username:
+	password:
+	age:
+	gender:
+}
+```
+and so on. I was relatively happy with that setup until I started approaching the search. 
 
-The number `10` in the `hashSync` example above referes to the number of cycles used to generate the salt. The larger this number, the longer it takes to create the salt, which in theory makes it more secure.
+Now, I clearly understand that the search preferences ought to have been my starting place. In order to limit the search results, I needed to know what my user's preferences were. <strong>While there are several ways to handle the preferences within a relational system, I would have preferred to use a NoSQL framework if I tried again. </strong>
+
+After about 1.5 hours of working from scratch, I realized that I wasn't satisfied with the direction I was heading. What I really wanted was to have a strong notion of a session, where the user's information would always be passed on securely in each communication between server and client. 
+
+I started over.
+
+----
+
+### Take 2
+
+Adapting an existing CRUD skeleton I'd written before, I started over, using Passport.js and BCRYPT to use browser sessions to keep a persistent track of whether a user is logged in or out. This way, a given user could only edit their own information, and the server would have easy access to their preferences through a user object in the header. 
+
+For my own sake, I used a super lightweight frontend to test my information while I was developing. It's the methodology I'm most used to right now. 
+
+Now, users have their preferences bound up in their account information. Signup and login are working nicely, and the search currently filters out the user from results as well as gender preference.
+
+----
+
+### Takeaway
+
+The search isn't as robust as I would like. I've only used manual JavaScript filters, when I should have written a more rigorous Postgres query. 
+
+On the other hand, I'm proud of the session I wrote in, and I have password encryption and decryption built into my authentication process. 
+
+I know it is supposed to be a simple challenge, but it took a lot of restraint on my part to stop working and reworking on this solution. In twice as much time, I think I would have a really nice setup, and it would be rewarding to see it all snap together in the frontend as well. 
 

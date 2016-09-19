@@ -1,9 +1,9 @@
 const auth = require("./auth")
-const posts = require("./posts")
+const likes = require("./likes")
 const users = require("./users")
 
 module.exports = {
   auth,
-  posts,
+  likes,
   users
 };

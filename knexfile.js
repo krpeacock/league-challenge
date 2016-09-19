@@ -4,7 +4,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: "postgres://localhost/passport_knex",
+    connection: "postgres://localhost/dating_example",
     pool: {
       min: 2,
       max: 10
@@ -12,16 +12,6 @@ module.exports = {
     migrations: {
       directory: './db/migrations'
     },
-  },
-
-  test:{
-    client: 'sqlite3',
-    connection: {
-      filename: 'test.db'
-    },
-    migrations: {
-      directory: './db/migrations'
-    }
   },
 
   staging: {

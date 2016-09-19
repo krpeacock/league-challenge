@@ -1,0 +1,16 @@
+extends ../layout.jade
+
+block content
+  h1 Search Preferences
+  form(action="/preferences" method = "post")
+    p
+      label(for="min_age") Min Age
+      input(type="integer" name="user[min_age]" id="min_age")
+
+    p
+      label(for="max_age") Max Age
+      input(type="integer" name="user[max_age]" id="max_age")
+
+    p
+      label(for="gender") Gender
+      input(type="integer" name="user[min_age]" id="min_age")
