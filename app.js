@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const session = require("cookie-session");
 const routes = require("./routes");
 const flash = require('connect-flash');
+var port = process.env.PORT || 3000;
 
 app.set("view engine", "jade");
 app.use(express.static(__dirname + "/public"));
@@ -73,8 +74,8 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(80, function(){
-  console.log("Server is listening on port 80");
+app.listen(port, function(){
+  console.log(`Server is listening on port ${port}`);
 });
 
 module.exports = app;
